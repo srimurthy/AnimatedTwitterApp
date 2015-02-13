@@ -6,7 +6,7 @@
     android:padding="10dp"
     android:layout_centerHorizontal="true"
     android:layout_margin="30dp"
-    tools:context="com.codepath.apps.restclienttemplate.ComposeTweet">
+    tools:context="com.srimurthy.apps.fragments.ComposeTweet">
 
     <ImageView
         android:layout_width="75dp"
