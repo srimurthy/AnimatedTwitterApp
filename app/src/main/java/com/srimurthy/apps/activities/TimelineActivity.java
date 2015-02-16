@@ -1,5 +1,6 @@
 package com.srimurthy.apps.activities;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -11,6 +12,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -85,6 +88,18 @@ public class TimelineActivity extends ActionBarActivity implements ComposeTweet.
     @Override
     public void onFragmentInteraction() {
         // populateOwnTimeline();
+    }
+
+    public void onProfileView(MenuItem item) {
+        Intent i = new Intent(this, ProfileActivity.class);
+        startActivity(i);
+    }
+
+    public void onProfileView(View view) {
+        Intent i = new Intent(this, ProfileActivity.class);
+        String userScreenName = (String)view.getTag();
+        i.putExtra("screen_name", userScreenName);
+        startActivity(i);
     }
 
 

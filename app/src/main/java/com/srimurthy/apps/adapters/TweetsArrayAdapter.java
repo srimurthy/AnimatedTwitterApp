@@ -54,6 +54,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         viewHolder.tvUserName.setText(tweet.getUser().getName());
         viewHolder.tvBody.setText(tweet.getBody());
         viewHolder.ivProfileImage.setImageResource(android.R.color.transparent);
+        viewHolder.ivProfileImage.setTag(tweet.getUser().getScreenName());
         viewHolder.tvCreatedAt.setText(tweet.getCreateAt());
         Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).into(viewHolder.ivProfileImage);
         viewHolder.tvScreenName.setText(tweet.getUser().getScreenName());

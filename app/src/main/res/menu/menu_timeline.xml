@@ -11,4 +11,15 @@
         android:orderInCategory="100"
         app:showAsAction="always"
         />
+
+    <item
+        android:id="@+id/miProfile"
+        android:title="Profile"
+        android:icon="@drawable/ic_profile"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"
+        android:onClick="onProfileView"
+        />
+
+
 </menu>
