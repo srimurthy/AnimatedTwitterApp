@@ -1,6 +1,10 @@
 package com.srimurthy.apps.activities;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,8 +13,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.srimurthy.apps.adapters.TweetsArrayAdapter;
 import com.srimurthy.apps.TwitterApplication;
+import com.srimurthy.apps.fragments.HomeTimelineFragment;
+import com.srimurthy.apps.fragments.MentionsTimelineFragment;
 import com.srimurthy.apps.fragments.TweetsListFragment;
 import com.srimurthy.apps.models.TwitterClient;
 import com.srimurthy.apps.mysimpletweets.R;
@@ -39,7 +46,11 @@ public class TimelineActivity extends ActionBarActivity implements ComposeTweet.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
-       // getAppUser();
+        ViewPager viewPager = (ViewPager)findViewById(R.id.viewpager);
+        viewPager.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager()));
+        PagerSlidingTabStrip pagerSlidingTabStrip = (PagerSlidingTabStrip)findViewById(R.id.tabs);
+        pagerSlidingTabStrip.setViewPager(viewPager);
+        // getAppUser();
 
     }
 
@@ -73,7 +84,7 @@ public class TimelineActivity extends ActionBarActivity implements ComposeTweet.
 
     @Override
     public void onFragmentInteraction() {
-       // populateOwnTimeline();
+        // populateOwnTimeline();
     }
 
 
@@ -109,4 +120,34 @@ public class TimelineActivity extends ActionBarActivity implements ComposeTweet.
 //            }
 //        });
 //    }
+
+
+    public class TweetsPagerAdapter extends FragmentPagerAdapter {
+        private String[] tabTitles = new String[]{"Home", "Mentions"};
+
+        public TweetsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            if (position == 0) {
+                return new HomeTimelineFragment();
+            } else if (position == 1) {
+                return new MentionsTimelineFragment();
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return this.tabTitles.length;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+
+            return this.tabTitles[position];
+        }
+    }
 }

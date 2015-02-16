@@ -23,6 +23,7 @@
         android:layout_toRightOf="@+id/ivProfileImage"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:textColor="#000000"
+        android:fontFamily="Helvetica"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -36,6 +37,7 @@
         android:layout_below="@+id/tvUserName"
         android:layout_marginTop="5dp"
         android:autoLink="all"
+        android:fontFamily="Gotham Narrow"
         android:linksClickable="true" />
 
     <TextView
