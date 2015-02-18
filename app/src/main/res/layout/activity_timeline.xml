@@ -20,4 +20,10 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white" />
 
+    <FrameLayout
+        android:id="@+id/compose_tweet_fragment_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" />
+
 </RelativeLayout>

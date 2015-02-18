@@ -44,7 +44,7 @@ public class MentionsTimelineFragment extends TweetsListFragment {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.e("DEBUG", errorResponse.toString());
+                Log.e("DEBUG", String.valueOf(errorResponse));
             }
         }, this.startIndex);
     }

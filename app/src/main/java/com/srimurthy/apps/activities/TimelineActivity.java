@@ -1,58 +1,69 @@
 package com.srimurthy.apps.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.srimurthy.apps.adapters.TweetsArrayAdapter;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.srimurthy.apps.TwitterApplication;
+import com.srimurthy.apps.fragments.ComposeTweet;
 import com.srimurthy.apps.fragments.HomeTimelineFragment;
 import com.srimurthy.apps.fragments.MentionsTimelineFragment;
-import com.srimurthy.apps.fragments.TweetsListFragment;
-import com.srimurthy.apps.models.TwitterClient;
-import com.srimurthy.apps.mysimpletweets.R;
-import com.srimurthy.apps.adapters.EndlessScrollListener;
 import com.srimurthy.apps.models.Tweet;
+import com.srimurthy.apps.models.TwitterClient;
 import com.srimurthy.apps.models.User;
-import com.srimurthy.apps.fragments.ComposeTweet;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.srimurthy.apps.mysimpletweets.R;
 
 import org.apache.http.Header;
-import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class TimelineActivity extends ActionBarActivity implements ComposeTweet.OnFragmentInteractionListener {
 
-    private TweetsListFragment tweetsListFragment;
-    private User appUser;
+    private TwitterClient twitterClient;
 
+    private TweetsPagerAdapter tweetsPagerAdapter;
+    private User appUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-
-        ViewPager viewPager = (ViewPager)findViewById(R.id.viewpager);
-        viewPager.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager()));
-        PagerSlidingTabStrip pagerSlidingTabStrip = (PagerSlidingTabStrip)findViewById(R.id.tabs);
+        this.twitterClient = TwitterApplication.getRestClient();
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        tweetsPagerAdapter = new TweetsPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(tweetsPagerAdapter);
+        PagerSlidingTabStrip pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         pagerSlidingTabStrip.setViewPager(viewPager);
+
+        this.twitterClient.getUserInfo(null, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
+                TimelineActivity.this.appUser = User.fromJSON(jsonObject);
+            }
+        });
+
+//        ImageView ivReply = (ImageView) findViewById(R.id.ivReply);
+//        ivReply.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String replyHashTag = (String) v.getTag();
+//                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//                ComposeTweet searchSettingFragment = ComposeTweet.newInstance(TimelineActivity.this.appUser, replyHashTag);
+//                ft.replace(R.id.compose_tweet_fragment_placeholder, searchSettingFragment);
+//                ft.commit();
+//            }
+//        });
         // getAppUser();
 
     }
@@ -79,15 +90,17 @@ public class TimelineActivity extends ActionBarActivity implements ComposeTweet.
     }
 
     public void displayTweetComposeDialog() {
-//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//        ComposeTweet searchSettingFragment = ComposeTweet.newInstance(this.twitterClient, appUser);
-//        ft.replace(R.id.compose_tweet_fragment_placeholder, searchSettingFragment);
-//        ft.commit();
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ComposeTweet searchSettingFragment = ComposeTweet.newInstance(appUser, null);
+        ft.replace(R.id.compose_tweet_fragment_placeholder, searchSettingFragment);
+        ft.commit();
     }
 
     @Override
-    public void onFragmentInteraction() {
-        // populateOwnTimeline();
+    public void onFragmentInteraction(Tweet tweet) {
+        HomeTimelineFragment homeTimelineFragment = (HomeTimelineFragment)this.tweetsPagerAdapter.getItem(0);
+        homeTimelineFragment.displayNewTweet(tweet);
     }
 
     public void onProfileView(MenuItem item) {
@@ -97,26 +110,12 @@ public class TimelineActivity extends ActionBarActivity implements ComposeTweet.
 
     public void onProfileView(View view) {
         Intent i = new Intent(this, ProfileActivity.class);
-        String userScreenName = (String)view.getTag();
+        String userScreenName = (String) view.getTag();
         i.putExtra("screen_name", userScreenName);
         startActivity(i);
     }
 
 
-//    private void getAppUser() {
-//        twitterClient.getAppUser(new JsonHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                Log.d("DEBUG", response.toString());
-//                TimelineActivity.this.appUser = User.fromJSON(response);
-//            }
-//
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                throwable.printStackTrace();
-//            }
-//        });
-//    }
 //
 //
 //

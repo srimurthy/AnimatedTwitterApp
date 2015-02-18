@@ -16,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.srimurthy.apps.TwitterApplication;
+import com.srimurthy.apps.activities.ProfileActivity;
+import com.srimurthy.apps.models.Tweet;
 import com.srimurthy.apps.mysimpletweets.R;
 import com.srimurthy.apps.models.TwitterClient;
 import com.srimurthy.apps.models.User;
@@ -42,28 +45,35 @@ public class ComposeTweet extends Fragment {
     private ImageView ivProfilePicture;
     private TextView tvUserName;
     private TextView tvScreenName;
-
-    private TwitterClient twitterClient;
+    private String replyHashTag;
     private User appUser;
 
     private OnFragmentInteractionListener mListener;
+
+
+    private TwitterClient twitterClient;
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     *
      * @return A new instance of fragment ComposeTweet.
      */
-    public static ComposeTweet newInstance(TwitterClient twitterClient, User appUser) {
+    public static ComposeTweet newInstance(User appUser, String replyHashTag) {
         ComposeTweet fragment = new ComposeTweet();
-        fragment.twitterClient = twitterClient;
         fragment.appUser = appUser;
+        fragment.replyHashTag = replyHashTag;
         return fragment;
     }
 
     public ComposeTweet() {
-        // Required empty public constructor
+        this.twitterClient = TwitterApplication.getRestClient();
     }
 
 
@@ -71,16 +81,16 @@ public class ComposeTweet extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         RelativeLayout fragmentLayout = (RelativeLayout) inflater.inflate(R.layout.fragment_compose_tweet, container, false);
-        this.tvCharacterCount = (TextView)fragmentLayout.findViewById(R.id.tvCharacterCount);
-        this.tvUserName = (TextView)fragmentLayout.findViewById(R.id.tvFragmentUserName);
-        this.tvScreenName = (TextView)fragmentLayout.findViewById(R.id.tvFragmentScreenName);
-        this.ivProfilePicture = (ImageView)fragmentLayout.findViewById(R.id.ivFragmentProfileImage);
+        this.tvCharacterCount = (TextView) fragmentLayout.findViewById(R.id.tvCharacterCount);
+        this.tvUserName = (TextView) fragmentLayout.findViewById(R.id.tvFragmentUserName);
+        this.tvScreenName = (TextView) fragmentLayout.findViewById(R.id.tvFragmentScreenName);
+        this.ivProfilePicture = (ImageView) fragmentLayout.findViewById(R.id.ivFragmentProfileImage);
 
         this.tvScreenName.setText(this.appUser.getScreenName());
         this.tvUserName.setText(this.appUser.getName());
         Picasso.with(getActivity()).load(this.appUser.getProfileImageUrl()).into(this.ivProfilePicture);
 
-        this.etTweetBody = (EditText)fragmentLayout.findViewById(R.id.etTweetBody);
+        this.etTweetBody = (EditText) fragmentLayout.findViewById(R.id.etTweetBody);
         this.etTweetBody.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -98,6 +108,9 @@ public class ComposeTweet extends Fragment {
             }
         });
 
+        if (this.replyHashTag != null && this.replyHashTag.isEmpty() == false) {
+            this.etTweetBody.setText(this.replyHashTag);
+        }
 
         Button saveButton = (Button) fragmentLayout.findViewById(R.id.btnSave);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -109,13 +122,13 @@ public class ComposeTweet extends Fragment {
             }
         });
 
-        Button closeButton = (Button) fragmentLayout.findViewById(R.id.btnClose);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ComposeTweet.this.hideFragment();
-            }
-        });
+//        Button closeButton = (Button) fragmentLayout.findViewById(R.id.btnClose);
+//        closeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ComposeTweet.this.hideFragment();
+//            }
+//        });
 
         return fragmentLayout;
     }
@@ -125,9 +138,10 @@ public class ComposeTweet extends Fragment {
 
             this.twitterClient.postTweet(new JsonHttpResponseHandler() {
                 @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     Log.d("DEBUG", response.toString());
-                    mListener.onFragmentInteraction();
+                    Tweet newTweet = Tweet.fromJSON(response);
+                    mListener.onFragmentInteraction(newTweet);
                 }
 
                 @Override
@@ -143,7 +157,6 @@ public class ComposeTweet extends Fragment {
         ft.hide(ComposeTweet.this);
         ft.commit();
     }
-
 
 
     @Override
@@ -174,6 +187,6 @@ public class ComposeTweet extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        public void onFragmentInteraction();
+        public void onFragmentInteraction(Tweet tweet);
     }
 }

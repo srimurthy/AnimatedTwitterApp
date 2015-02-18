@@ -2,19 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_box"
+    android:background="#F8F5FA"
     android:padding="10dp"
     android:layout_centerHorizontal="true"
-    android:layout_margin="30dp"
+    android:layout_margin="5dp"
     tools:context="com.srimurthy.apps.fragments.ComposeTweet">
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:id="@+id/ivFragmentProfileImage"
         android:src="@android:drawable/ic_lock_idle_alarm"
         android:layout_alignParentLeft="true"
-        android:layout_margin="10dp" />
+        android:layout_alignParentTop="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,9 +45,10 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="140"
         android:id="@+id/tvCharacterCount"
-        android:layout_alignEnd="@+id/tvFragmentUserName"
-        android:layout_alignRight="@+id/tvFragmentUserName"
-        android:layout_above="@+id/etTweetBody" />
+        android:layout_alignTop="@+id/tvFragmentScreenName"
+        android:layout_toLeftOf="@+id/btnSave"
+        android:layout_toStartOf="@+id/btnSave"
+        android:layout_marginRight="20dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -59,7 +60,7 @@
         android:layout_toRightOf="@+id/tvCharacterCount"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginLeft="3dp"/>
+        android:layout_marginLeft="3dp" />
 
     <EditText
         android:layout_marginTop="10dp"
@@ -73,7 +74,7 @@
         android:layout_below="@+id/ivFragmentProfileImage"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_above="@+id/btnSave" />
+        android:layout_alignParentBottom="true" />
 
     <Button
         android:id="@+id/btnSave"
@@ -82,23 +83,22 @@
         android:onClick="onSettingsSave"
         android:text="@string/tweet"
         android:textAllCaps="false"
-        android:background="#ff56ebff"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="121dp" />
-
-    <Button
-        android:id="@+id/btnClose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#ff56ebff"
-        android:text="Close"
-        android:textAllCaps="false"
-        android:layout_alignTop="@+id/btnSave"
+        android:background="#55ACEE"
+        android:layout_alignBottom="@+id/ivFragmentProfileImage"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:textColor="#F8F5FA" />
+
+    <!--<Button-->
+    <!--android:id="@+id/btnClose"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="#ff56ebff"-->
+    <!--android:text="Close"-->
+    <!--android:textAllCaps="false"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_alignParentEnd="true" />-->
 
 
 </RelativeLayout>
