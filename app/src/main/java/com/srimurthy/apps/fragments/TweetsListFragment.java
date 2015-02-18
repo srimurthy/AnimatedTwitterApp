@@ -54,13 +54,13 @@ public abstract class TweetsListFragment extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-//        this.lvTweets.setOnScrollListener(new EndlessScrollListener() {
-//            @Override
-//            public void onLoadMore(int page, int totalItemsCount) {
-//                TweetsListFragment.this.startIndex = page * 7;
-//                populateTimeline();
-//            }
-//        });
+        this.lvTweets.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                TweetsListFragment.this.startIndex = page * 7;
+                populateTimeline();
+            }
+        });
 
 
         return view;
