@@ -14,15 +14,16 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/gradient_box">
 
-        <!--<ImageView-->
-        <!--android:id="@+id/ivProfileImage"-->
-        <!--android:layout_width="75dp"-->
-        <!--android:layout_height="75dp"-->
-        <!--android:background="@android:drawable/screen_background_light_transparent"-->
-        <!--android:layout_marginTop="30dp"-->
-        <!--android:layout_centerHorizontal="true" />-->
+        <ImageView
+            android:id="@+id/ivProfileImage"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/style_profile_image"/>
 
         <TextView
             android:id="@+id/tvName"
@@ -30,7 +31,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:layout_marginTop="25dp"
-            android:layout_centerVertical="true"
+            android:layout_below="@+id/ivProfileImage"
             android:layout_centerHorizontal="true"
             android:textColor="#FFFFFF" />
 
@@ -51,7 +52,6 @@
         android:id="@+id/llCounts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="13dp"
         android:layout_below="@+id/rlUserHeader"
         android:background="@android:color/white">
 
@@ -71,7 +71,9 @@
             android:layout_below="@id/tvTweetCount"
             android:layout_alignLeft="@+id/tvTweetCount"
             android:layout_marginTop="10dp"
-            android:text="TWEETS" />
+            android:text="Tweets"
+            android:textColor="#292f33"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/tvFollowing"
@@ -90,7 +92,9 @@
             android:layout_below="@id/tvFollowing"
             android:layout_alignLeft="@+id/tvFollowing"
             android:layout_marginTop="10dp"
-            android:text="FOLLOWING" />
+            android:text="Following"
+            android:textColor="#292f33"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/tvFollowers"
@@ -106,12 +110,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvFollowers"
-            android:text="FOLLOWERS"
+            android:text="Followers"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:textColor="#292f33"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
     </RelativeLayout>

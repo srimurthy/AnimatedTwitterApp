@@ -96,7 +96,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:id="@+id/ivReply"
-            android:src="@drawable/ic_reply"
+            android:src="@mipmap/ic_reply_new"
             />
 
 
@@ -105,7 +105,7 @@
             android:layout_height="20dp"
             android:id="@+id/ivRetweet"
             android:layout_marginLeft="70dp"
-            android:src="@drawable/ic_retweet" />
+            android:src="@mipmap/ic_retweet_new" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -122,7 +122,9 @@
             android:layout_height="20dp"
             android:layout_marginLeft="70dp"
             android:id="@+id/ivFavoritesCount"
-            android:src="@drawable/ic_favorite_star" />
+            android:src="@drawable/states_favorite"
+            android:clickable="true"
+            />
 
         <TextView
             android:layout_width="wrap_content"

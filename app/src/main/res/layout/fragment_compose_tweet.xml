@@ -48,7 +48,8 @@
         android:layout_alignTop="@+id/tvFragmentScreenName"
         android:layout_toLeftOf="@+id/btnSave"
         android:layout_toStartOf="@+id/btnSave"
-        android:layout_marginRight="20dp"/>
+        android:layout_marginRight="20dp"
+        android:textColor="#292f33" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -60,7 +61,8 @@
         android:layout_toRightOf="@+id/tvCharacterCount"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginLeft="3dp" />
+        android:layout_marginLeft="3dp"
+        android:textColor="#292f33" />
 
     <EditText
         android:layout_marginTop="10dp"
@@ -74,7 +76,8 @@
         android:layout_below="@+id/ivFragmentProfileImage"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:textColor="#292f33" />
 
     <Button
         android:id="@+id/btnSave"

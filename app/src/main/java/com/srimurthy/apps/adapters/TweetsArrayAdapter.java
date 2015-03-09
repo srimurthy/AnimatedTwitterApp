@@ -1,6 +1,7 @@
 package com.srimurthy.apps.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,8 @@ import java.util.List;
  */
 public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
 
+    private Typeface textFont;
+
     private static class ViewHolder {
         ImageView ivProfileImage;
         TextView tvUserName;
@@ -34,8 +37,9 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         ImageView ivReply;
     }
 
-    public TweetsArrayAdapter(Context context, List<Tweet> tweets) {
+    public TweetsArrayAdapter(Context context, List<Tweet> tweets, Typeface textFont) {
         super(context, 0, tweets);
+        this.textFont = textFont;
     }
 
     @Override
@@ -64,13 +68,18 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvUserName.setText(tweet.getUser().getName());
+//        viewHolder.tvUserName.setTypeface(this.textFont);
+
         viewHolder.tvBody.setText(tweet.getBody());
+//        viewHolder.tvBody.setTypeface(this.textFont);
+
         viewHolder.ivProfileImage.setImageResource(android.R.color.transparent);
         viewHolder.ivProfileImage.setTag(tweet.getUser().getScreenName());
         viewHolder.ivReply.setTag(tweet.getUser().getScreenName());
         viewHolder.tvCreatedAt.setText(tweet.getCreateAt());
         Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).into(viewHolder.ivProfileImage);
         viewHolder.tvScreenName.setText(tweet.getUser().getScreenName());
+
         viewHolder.tvRetweetCount.setText(String.valueOf(tweet.getRetweetCount()));
         viewHolder.tvFavoritesCount.setText(String.valueOf(tweet.getFavoriteCount()));
 

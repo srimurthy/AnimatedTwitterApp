@@ -75,7 +75,7 @@ public class ProfileActivity extends ActionBarActivity {
         TextView tvTweetCount = (TextView) findViewById(R.id.tvTweetCount);
         TextView tvFollowers = (TextView) findViewById(R.id.tvFollowers);
         TextView tvFollowing = (TextView) findViewById(R.id.tvFollowing);
-        //ImageView ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
+        ImageView ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
 
 
         String url = user.getProfileBackgroundImageUrl();
@@ -89,7 +89,7 @@ public class ProfileActivity extends ActionBarActivity {
         tvScreenName.setText(user.getScreenName());
         tvFollowers.setText(String.valueOf(user.getFollowersCount()));
         tvFollowing.setText(String.valueOf(user.getFollowingCount()));
-        //Picasso.with(this).load(user.getProfileImageUrl()).into(ivProfileImage);
+        Picasso.with(this).load(user.getProfileImageUrl()).into(ivProfileImage);
 
     }
 

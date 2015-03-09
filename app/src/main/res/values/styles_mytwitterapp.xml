@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <style name="Theme.Mytwitterapp" parent="@style/Theme.AppCompat">
+        <item name="actionBarStyle">@style/ActionBar.Solid.Mytwitterapp</item>
+    </style>
+
+    <style name="ActionBar.Solid.Mytwitterapp" parent="@style/Widget.AppCompat.ActionBar.Solid">
+        <item name="background">@drawable/ab_solid_mytwitterapp</item>
+    </style>
+
+</resources>
