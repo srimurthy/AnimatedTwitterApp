@@ -46,6 +46,8 @@ public class TimelineActivity extends ActionBarActivity implements ComposeTweet.
         PagerSlidingTabStrip pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         pagerSlidingTabStrip.setViewPager(viewPager);
 
+        this.getSupportActionBar().setIcon(R.mipmap.ic_twitter_white_bird);
+        this.getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_twitter_white_bird);
         this.twitterClient.getUserInfo(null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {

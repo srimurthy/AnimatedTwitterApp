@@ -33,6 +33,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         TextView tvScreenName;
         TextView tvRetweetCount;
         TextView tvFavoritesCount;
+        ImageView ivFavorite;
         ImageView ivMediaImage;
         ImageView ivReply;
     }
@@ -60,6 +61,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
             viewHolder.tvFavoritesCount = (TextView)convertView.findViewById(R.id.tvFavoritesCount);
             viewHolder.ivMediaImage = (ImageView)convertView.findViewById(R.id.ivMediaImage);
             viewHolder.ivReply = (ImageView)convertView.findViewById(R.id.ivReply);
+            viewHolder.ivFavorite = (ImageView)convertView.findViewById(R.id.ivFavoritesCount);
 
 
 
@@ -82,7 +84,14 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
 
         viewHolder.tvRetweetCount.setText(String.valueOf(tweet.getRetweetCount()));
         viewHolder.tvFavoritesCount.setText(String.valueOf(tweet.getFavoriteCount()));
-
+        viewHolder.ivFavorite.setOnClickListener(new View.OnClickListener() {
+            boolean clicked;
+            @Override
+            public void onClick(View v) {
+                clicked = !clicked;
+                v.setPressed(clicked);
+            }
+        });
 
         if (tweet.getMediaURL() != null && tweet.getMediaURL().isEmpty() == false) {
             viewHolder.ivMediaImage.setImageResource(android.R.color.transparent);
